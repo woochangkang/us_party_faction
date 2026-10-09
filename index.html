@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미국 의회 정당 계파</title>
+<meta name="description" content="미국 의회 내 정당 계파(코커스)와 표결을 추적하는 연구 사이트">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap">
+<style>
+  :root {
+    --bg: #fafaf7; --fg: #1d1d1b; --muted: #6b6b66; --line: #e2e1da;
+    --card: #ffffff; --accent: #2f4b7c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16171a; --fg: #ececea; --muted: #9a9a95; --line: #2c2d31;
+      --card: #1e1f23; --accent: #8fa8d8;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16171a; --fg: #ececea; --muted: #9a9a95; --line: #2c2d31;
+    --card: #1e1f23; --accent: #8fa8d8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: "Noto Sans KR", system-ui, sans-serif; line-height: 1.7;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+  h1 { font-size: 1.9rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .lede { color: var(--muted); margin: 0 0 40px; }
+  .sections { display: grid; gap: 12px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card h2 { font-size: 1.05rem; margin: 0 0 4px; }
+  .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .tag {
+    display: inline-block; font-size: 0.75rem; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 999px; padding: 0 8px; margin-left: 6px;
+    vertical-align: middle;
+  }
+  footer { margin-top: 48px; color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>미국 의회 정당 계파</h1>
+  <p class="lede">미국 의회 내 정당 계파(코커스)의 구성과 표결 행태를 추적합니다.</p>
+
+  <div class="sections">
+    <section class="card">
+      <h2>계파 명단 <span class="tag">준비 중</span></h2>
+      <p>119대 하원 이념 코커스별 소속 의원과 출처.</p>
+    </section>
+    <section class="card">
+      <h2>표결 <span class="tag">준비 중</span></h2>
+      <p>계파별 표결 행태와 양당 지도부 합의 안건.</p>
+    </section>
+    <section class="card">
+      <h2>문헌 <span class="tag">준비 중</span></h2>
+      <p>미국 의회 계파 연구의 선행 문헌.</p>
+    </section>
+  </div>
+
+  <footer>강우창 · 고려대학교</footer>
+</main>
+</body>
+</html>
