@@ -2,8 +2,8 @@
 
 원천: 비공개 작업 폴더의 rosters_hist/ (환경변수 FACTIONS_SRC로 지정). 이 스크립트가 공개용 데이터만 data/로 복사하고 HTML을 만든다.
 공개 범위(2026-10-10 결정):
-  - 106-115대(Clarke 2020 수기 코딩)는 계파별 인원·변화 '집계'만. 의원 단위 행은 싣지 않는다
-    (Dataverse doi:10.7910/DVN/SYYMJ0 에 명시 라이선스가 없음).
+  - 106-115대(Clarke 2020 수기 코딩): 계파별 인원·변화 집계 + 대별 이념 분포 그림(2026-10-10 사용자 결정으로 그림 공개).
+    의원 단위 CSV·명단 표는 싣지 않는다. 모든 페이지 하단에 면책 문구(DISCLAIMER).
   - 의원 단위 명단·변화는 116-119대만. 116대 의원별 변화 상태는 115대 명단을 드러내므로 싣지 않는다(117대부터).
   - RMSP(Partnership)와 Main Street Caucus는 별도 계열.
 실행: FACTIONS_SRC=<rosters_hist 경로> python3.11 tools/build_site.py
@@ -28,6 +28,47 @@ CAUCUS = {  # key: (한국어, 영어, 정당계열 색 변수, 설명)
     'hfc': ('프리덤코커스', 'House Freedom Caucus', 'r', '공화당 강경 보수 계파. 공식 명단을 공개하지 않는다.'),
     'psc': ('문제해결코커스', 'Problem Solvers Caucus', 'b', '양당 의원이 함께 속한 초당파 코커스.'),
 }
+REFS = {
+    'clarke': 'Clarke, Andrew J. 2020. "Party Sub-Brands and American Party Factions." <i>American Journal of Political Science</i> 64(3): 452–470.',
+    'seolee': '서정건·이종곤. 2025. 「미국 의회 계파 정치와 안보정책: 의회진보연합과 프리덤코커스를 중심으로」. 『미국학논집』 57(2): 69–99.',
+    'leejk': '이종곤. 2025. 「트럼프 대통령 의제와 미국 민주당 의원 법안투표: 119대 의회 초반을 중심으로」. 『글로벌정치연구』 18(2): 149–178.',
+    'leef': 'Lee, Frances E. 2026. "Lessons from the House Freedom Caucus: Ideology and President Trump." <i>Political Science Quarterly</i> 141(1): 19–28.',
+}
+CHAR = {  # 정독 문헌에서 확인한 서술만, 쪽수 인용
+    'cpc': ['민주당의 강성 진보 계파다(서정건·이종곤 2025, 89).',
+            '설립 당시 20명 남짓에서 2010년대 60–70명으로 커졌다(서정건·이종곤 2025, 73).',
+            '소수인종·여성 비중이 높고 정체성 정치 관련 정책 개발에 힘써 왔다(이종곤 2025, 154).',
+            '안보 법안에서는 경쟁국과의 대립보다 협력을 강조하는 입장에서 반대하기도 했다(서정건·이종곤 2025, 81).'],
+    'ndc': ['민주당 내 이념 중위를 형성하며 오랫동안 당내 주류였던 계파다(이종곤 2025, 154).',
+            '진보 계파보다 중도이고, 청견민주보다는 당 주류에 가깝다(Clarke 2020, 459).'],
+    'bluedog': ['중도진보 성향으로(이종곤 2025, 154), 다른 민주당 의원에 비해 예산 감축에 특히 관심이 많다(이종곤 2025, 155).',
+                '가입 인원을 민주당 코커스의 20%로 제한하는 배타적 계파이며(Clarke 2020, 461), 구성원 다수가 합의하면 모두가 그 입장으로 표결하는 구속 규칙을 둔다(Clarke 2020, 454).',
+                'Clarke(2020)의 분석에서 평균 이념 위치가 의회진보연합보다 0.28 보수 쪽이다(Clarke 2020, 459).'],
+    'rmsp': ['공화당 중도 성향 외부 단체로, Clarke(2020)가 1999–2018년 소속을 코딩한 계파 중 하나다.',
+             '114–115대에서 프리덤코커스 평균은 이 단체 소속 평균보다 0.33 보수 쪽이었다(Clarke 2020, 459).'],
+    'mainstreet': ['공화당 하원 코커스. 공식 사이트는 스스로를 "a coalition of 90+ conservative lawmakers"로 소개한다(mainstreetcaucus.house.gov/about, 2026-10-09 접근).',
+                   '외부 단체인 메인스트리트파트너십과 이름이 비슷하지만 별개 조직으로 집계한다.'],
+    'rsc': ['공화당 주류 계파로 분류된다(서정건·이종곤 2025, 89).',
+            'Clarke(2020)의 분석에서 티파티·리버티·프리덤코커스와 함께 공화당 이념 분포의 보수 쪽 꼬리에 몰려 있는 비중도 계파로 나타난다(Clarke 2020, 459–460).',
+            '2025-01-25 이후 공식 회원 명단을 공개하지 않는다(Wikipedia "Republican Study Committee").'],
+    'hfc': ['2015년 소정부와 지도부 저항을 내걸고 창립했다(Lee 2026, 19).',
+            '티파티 운동을 바탕으로 재정 보수주의와 규제 완화를 내세우고, 국제 문제 개입을 꺼린다(서정건·이종곤 2025, 71).',
+            '초대 전용 가입과 다수 합의 시 구속 표결 규칙을 둔다(Clarke 2020, 454, 460).',
+            '2015–2024년 세출·부채한도 표결에서 다른 공화당 의원과 뚜렷이 달랐지만, 2025년 상반기 임시예산(H.R. 1968)과 H.R. 1에는 전원 찬성했다(Lee 2026).'],
+    'psc': ['양당 의원이 함께 속한 초당파 코커스다. 이 사이트가 정독한 문헌에는 이 코커스의 성격을 다룬 근거가 없어, 구성 통계만 제시한다.'],
+}
+FULL = pd.read_csv(os.path.join(SRC, 'roster_panel.csv'))
+
+def stats(k):
+    d = FULL[FULL.congress == 119]; s = d[d[k] == 1]
+    if not len(s): return ''
+    pc = s.party.value_counts()
+    pm = d.groupby('party').nominate_dim1.median()
+    comp = ' · '.join(f'{"민주" if p == "D" else "공화" if p == "R" else "기타"} {n}' for p, n in pc.items())
+    main = pc.index[0]
+    return (f'119대: {len(s)}명({comp}). DW-NOMINATE 1차원 중앙값 {s.nominate_dim1.median():.2f}'
+            f'{"" if k == "psc" else f" (같은 당 전체 {pm[main]:.2f})"}, 2차원 중앙값 {s.nominate_dim2.median():.2f}.')
+
 AGG_ONLY = {'teaparty': 'Tea Party Caucus', 'liberty': 'Liberty Caucus', 'populist': 'Populist Caucus'}
 SRC_LABEL = {'clarke2020': 'Clarke(2020) 수기 코딩', 'wayback_official': '공식 명단(Wayback 보관본)',
              'official_current': '공식 명단(현재본)', 'wikipedia_secondary': 'Wikipedia(2차)', 'wapo_secondary': 'WaPo(2차)'}
@@ -70,9 +111,15 @@ for (icpsr, bio), g in panel.groupby(['icpsr', 'bioname']):
     mem.append(rec)
 json.dump(mem, open(os.path.join(DATA, 'members.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 
+DISCLAIMER = ('면책: 이 사이트는 연구 목적으로 공개 자료를 정리한 것이며, 각 코커스의 공식 명단이나 원 출처를 대체하지 않습니다. '
+              '106–115대 계파 소속은 Clarke(2020)의 복제 자료(Harvard Dataverse, doi:10.7910/DVN/SYYMJ0)에서 가져왔습니다. '
+              '이 자료에는 명시된 이용 라이선스가 없으며, 이 사이트는 원저자나 학술지(AJPS)의 승인·보증을 받지 않았습니다. '
+              '116–119대 명단은 공식 페이지 보관본과 2차 출처(Wikipedia, Washington Post)를 옮긴 것으로 원 출처의 오류나 누락이 그대로 있을 수 있습니다. '
+              '오류를 발견하시면 알려 주십시오.')
+
 # ---------------- 공통 조각 ----------------
 def page(title, active, body, desc=''):
-    nav = [('index.html', '개요'), ('members.html', '의원 검색'), ('methods.html', '출처와 방법')]
+    nav = [('index.html', '개요'), ('nominate.html', '이념 분포'), ('members.html', '의원 검색'), ('methods.html', '출처와 방법')]
     navh = ' '.join(f'<a href="{h}" class="{"on" if h == active else ""}">{t}</a>' for h, t in nav)
     cnav = ' '.join(f'<a href="caucus-{k}.html" class="{"on" if active == f"caucus-{k}.html" else ""}">{v[0]}</a>' for k, v in CAUCUS.items())
     return f'''<!doctype html>
@@ -84,7 +131,8 @@ def page(title, active, body, desc=''):
 <body><main>
 <nav class="top">{navh} <span style="color:var(--line)">|</span> {cnav}</nav>
 {body}
-<footer>강우창 · 고려대학교 · 데이터 기준일 2026-10-10 · 원자료와 재현 스크립트 출처는 <a href="methods.html">출처와 방법</a> 참조</footer>
+<footer>강우창 · 고려대학교 · 데이터 기준일 2026-10-10 · 원자료와 재현 스크립트 출처는 <a href="methods.html">출처와 방법</a> 참조
+<p style="margin:10px 0 0;font-size:0.78rem">{DISCLAIMER}</p></footer>
 </main></body></html>'''
 
 def bars(key, w=300, h=150, big=False):
@@ -124,7 +172,9 @@ LEGEND = ('<div class="legend"><span><span class="sw" style="background:var(--mu
 # ---------------- 개요 ----------------
 cards = []
 for k, (ko, en, col, desc) in CAUCUS.items():
-    cards.append(f'<div class="card"><h3><a href="caucus-{k}.html">{ko}</a></h3><p class="sub">{en}</p>{bars(k)}</div>')
+    cards.append(f'<div class="card"><h3><a href="caucus-{k}.html">{ko}</a></h3><p class="sub">{en}</p>{bars(k)}'
+                 f'<p style="font-size:0.84rem;margin:8px 0 4px">{" ".join(CHAR[k])}</p>'
+                 f'<p style="font-size:0.78rem;color:var(--muted);margin:0">{stats(k)}</p></div>')
 tbl = ['<div class="table-wrap"><table><tr><th>대</th><th>기간</th>' + ''.join(f'<th class="num">{v[0]}</th>' for v in CAUCUS.values()) + '</tr>']
 for c in range(106, 120):
     row = [f'<td>{c}</td><td>{CONGRESS_YEARS[c]}</td>']
@@ -186,7 +236,8 @@ for k, (ko, en, col, desc) in CAUCUS.items():
                  '이름이 실린 의원입니다. 문서 본문의 인원 문구와 목록 길이가 다를 수 있습니다(예: 2024-11-23판 본문 "at least 39", 목록 34명).</div>')
     if k == 'rsc':
         extra = '<div class="note">RSC는 2025-01-25 이후 공식 명단을 공개하지 않아, 119대 값은 Washington Post(2025-05-20) 기사 표(2차)입니다.</div>'
-    body = f'''<h1>{ko}</h1><p class="lede">{en} — {desc}</p>{extra}
+    body = f'''<h1>{ko}</h1><p class="lede">{en} — {desc}</p>
+<h2>특징</h2><ul>{"".join(f"<li>{x}</li>" for x in CHAR[k])}</ul><p style="font-size:0.86rem;color:var(--muted)">{stats(k)}</p>{extra}
 <h2>대별 인원</h2>{LEGEND}<div class="card">{bars(k, w=640, h=220, big=True)}</div>
 <h2>구성원 변화 (직전 대 대비)</h2>
 <p class="lede" style="font-size:0.88rem">두 대 모두 출처가 있을 때만 비교합니다. 강조된 행은 출처 계열이 바뀐 쌍이라 측정 방식 차이가 섞일 수 있습니다. 106–115대는 Clarke(2020) 자료의 집계입니다.</p>
@@ -195,6 +246,21 @@ for k, (ko, en, col, desc) in CAUCUS.items():
 <p class="lede" style="font-size:0.88rem">NOMINATE는 Voteview DW-NOMINATE 1차원(의원별 단일 값, 2026-10-10판). [1], [2]는 그 의원이 실린 원 출처(보관본·개정판) 링크입니다. 116대의 "직전 대 대비"는 115대 의원 단위 자료를 공개하지 않아 비워 둡니다.</p>
 {''.join(ros)}'''
     open(os.path.join(ROOT, f'caucus-{k}.html'), 'w').write(page(f'{ko} · 미국 의회 정당 계파', f'caucus-{k}.html', body, f'{en} 대별 소속 의원'))
+
+# ---------------- 이념 분포 ----------------
+import shutil
+FIG = os.path.join(ROOT, 'assets', 'fig'); os.makedirs(FIG, exist_ok=True)
+figs = []
+for c in range(119, 105, -1):
+    shutil.copy(os.path.join(SRC, 'figures', f'nominate_{c}.png'), os.path.join(FIG, f'nominate_{c}.png'))
+    figs.append(f'<details{" open" if c >= 118 else ""}><summary>{c}대 ({CONGRESS_YEARS[c]})</summary>'
+                f'<img src="assets/fig/nominate_{c}.png" alt="{c}대 하원의원 DW-NOMINATE 1·2차원 분포, 색은 당적, 모양은 계파" '
+                f'style="width:100%;max-width:880px;height:auto;display:block;margin:8px 0"></details>')
+body = f'''<h1>이념 분포</h1>
+<p class="lede">대마다 하원의원을 DW-NOMINATE 1차원(가로, 진보–보수)과 2차원(세로) 위에 찍었습니다. 색은 당적, 모양은 계파입니다.</p>
+<div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단(HFC는 Wikipedia 2차)입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
+{"".join(figs)}'''
+open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원의원 DW-NOMINATE 분포'))
 
 # ---------------- 의원 검색 ----------------
 opts = ''.join(f'<option value="{k}">{v[0]}</option>' for k, v in CAUCUS.items())
@@ -219,6 +285,7 @@ body = '''<h1>출처와 방법</h1>
 <tr><td>119</td><td>RSC: Washington Post 2025-05-20 기사(Dormido &amp; Sotomayor) 표</td><td>2차</td></tr>
 <tr><td>전 기간</td><td>의원 식별·이념 점수: <a href="https://voteview.com/data">Voteview</a> HSall_members.csv (2026-10-10 접근)</td><td>—</td></tr>
 </table></div>
+<h2>계파 설명에 인용한 문헌</h2><ul>''' + ''.join(f'<li>{v}</li>' for v in REFS.values()) + '''</ul>
 <h2>정의</h2>
 <ul>
 <li><b>소속</b>: 그 대에 출처 명단에 이름이 실린 하원의원. 116–119대는 그 대의 스냅샷 중 하나 이상에 실린 경우(가입·탈퇴 날짜는 담지 않음).</li>
@@ -235,8 +302,9 @@ body = '''<h1>출처와 방법</h1>
 <li>RMSP(외부 단체 Republican Main Street Partnership)와 Main Street Caucus(하원 코커스)는 별도 계열이다.</li>
 <li>출처 표기 오류 보정: RSC 2023-04-18판의 Blake Moore·Barry Moore 주 표기 뒤바뀜(이름으로 연결), "Marc Veasy"→Veasey, "Mike Haridopolis"→Haridopolos.</li>
 </ul>
-<h2>공개 범위</h2>
-<p>Clarke(2020) 복제 자료에는 명시된 이용 라이선스가 없어(Dataverse: "limited information on how it can be used"), 106–115대는 계파별 인원·변화 집계만 싣고 의원 단위 명단은 싣지 않는다.</p>
+<h2>공개 범위와 면책</h2>
+<p>Clarke(2020) 복제 자료의 Dataverse 이용 조건에는 명시된 라이선스가 없고 다음 문구만 있다: "This dataset is made available with limited information on how it can be used. You may wish to communicate with the Contact(s) specified before use." 재배포를 금지하는 조항은 없다. 이 사이트는 학술 목적으로 106–115대의 계파별 인원·변화 집계와 대별 이념 분포 그림을 싣고, 의원 단위 CSV는 116–119대만 제공한다.</p>
+<p>''' + DISCLAIMER + '''</p>
 <h2>내려받기</h2>
 <ul>
 <li><a href="data/caucus_counts_106_119.csv">caucus_counts_106_119.csv</a> — 계파 × 대 인원, 출처 유형, 스냅샷 날짜</li>
