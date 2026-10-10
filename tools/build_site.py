@@ -1,18 +1,18 @@
 """us_party_faction 사이트 빌드.
 
-원천: factions/rosters_hist/ (NIS 프로젝트 폴더, 비공개). 이 스크립트가 공개용 데이터만 data/로 복사하고 HTML을 만든다.
+원천: 비공개 작업 폴더의 rosters_hist/ (환경변수 FACTIONS_SRC로 지정). 이 스크립트가 공개용 데이터만 data/로 복사하고 HTML을 만든다.
 공개 범위(2026-10-10 결정):
   - 106-115대(Clarke 2020 수기 코딩)는 계파별 인원·변화 '집계'만. 의원 단위 행은 싣지 않는다
     (Dataverse doi:10.7910/DVN/SYYMJ0 에 명시 라이선스가 없음).
   - 의원 단위 명단·변화는 116-119대만. 116대 의원별 변화 상태는 115대 명단을 드러내므로 싣지 않는다(117대부터).
   - RMSP(Partnership)와 Main Street Caucus는 별도 계열.
-실행: python3.11 tools/build_site.py
+실행: FACTIONS_SRC=<rosters_hist 경로> python3.11 tools/build_site.py
 """
-import html, json, os
+import html, json, os, sys
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = '/Users/kang/Library/CloudStorage/Dropbox/_NIS/_US_Congress/factions/rosters_hist'
+SRC = os.environ.get('FACTIONS_SRC') or sys.exit('FACTIONS_SRC 환경변수로 rosters_hist 폴더 경로를 지정하세요')
 DATA = os.path.join(ROOT, 'data')
 os.makedirs(DATA, exist_ok=True)
 E = html.escape
