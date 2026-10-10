@@ -2,9 +2,8 @@
 
 원천: 비공개 작업 폴더의 rosters_hist/ (환경변수 FACTIONS_SRC로 지정). 이 스크립트가 공개용 데이터만 data/로 복사하고 HTML을 만든다.
 공개 범위(2026-10-10 결정):
-  - 106-115대(Clarke 2020 수기 코딩): 계파별 인원·변화 집계 + 대별 이념 분포 그림(2026-10-10 사용자 결정으로 그림 공개).
-    의원 단위 CSV·명단 표는 싣지 않는다. 모든 페이지 하단에 면책 문구(DISCLAIMER).
-  - 의원 단위 명단·변화는 116-119대만. 116대 의원별 변화 상태는 115대 명단을 드러내므로 싣지 않는다(117대부터).
+  - 106-119대 전체를 의원 단위까지 공개(2026-10-11 사용자 결정: Clarke 자료에 금지 조항 없음, 학술 목적).
+    106-115대는 Clarke(2020) 근거임을 구간마다 표시하고, 모든 페이지 하단에 면책 문구(DISCLAIMER).
   - RMSP(Partnership)와 Main Street Caucus는 별도 계열.
 실행: FACTIONS_SRC=<rosters_hist 경로> python3.11 tools/build_site.py
 """
@@ -81,25 +80,20 @@ counts = pd.read_csv(os.path.join(SRC, 'panel_counts.csv'))
 counts['caucus'] = counts.caucus.str.lower()
 summ = pd.read_csv(os.path.join(SRC, 'caucus_transition_summary.csv'))
 rost = pd.read_csv(os.path.join(SRC, 'caucus_rosters_by_congress.csv'))
-rost = rost[rost.congress >= 116]
 trans = pd.read_csv(os.path.join(SRC, 'caucus_transitions.csv'))
-trans = trans[trans.from_congress >= 116]
 ev = pd.read_csv(os.path.join(SRC, 'roster_panel_long.csv'))
 ev['caucus'] = ev.caucus.str.lower()
-ev = ev[ev.congress >= 116]
 panel = pd.read_csv(os.path.join(SRC, 'roster_panel.csv'))
-panel = panel[panel.congress >= 116]
-assert (rost.congress >= 116).all() and (ev.congress >= 116).all() and (panel.congress >= 116).all()
 
 # 공개 CSV
 counts.drop(columns=['n_icpsr_in_sources']).to_csv(os.path.join(DATA, 'caucus_counts_106_119.csv'), index=False)
 summ.to_csv(os.path.join(DATA, 'caucus_change_summary_106_119.csv'), index=False)
 pcols = ['congress', 'icpsr', 'bioname', 'bioguide_id', 'party', 'state', 'district', 'nominate_dim1', 'nominate_dim2'] + \
-        ['cpc', 'ndc', 'bluedog', 'rmsp', 'mainstreet', 'rsc', 'hfc', 'psc']
-panel[pcols].to_csv(os.path.join(DATA, 'members_116_119.csv'), index=False)
-trans.to_csv(os.path.join(DATA, 'caucus_change_members_117_119.csv'), index=False)
+        ['cpc', 'ndc', 'bluedog', 'rmsp', 'mainstreet', 'rsc', 'hfc', 'psc', 'teaparty', 'liberty', 'populist']
+panel[pcols].to_csv(os.path.join(DATA, 'members_106_119.csv'), index=False)
+trans.to_csv(os.path.join(DATA, 'caucus_change_members_107_119.csv'), index=False)
 ev[['caucus', 'congress', 'icpsr', 'bioname', 'source_type', 'source_url', 'snapshot_date', 'sha256', 'note']] \
-    .to_csv(os.path.join(DATA, 'evidence_116_119.csv'), index=False)
+    .to_csv(os.path.join(DATA, 'evidence_106_119.csv'), index=False)
 
 # 의원 검색용 JSON
 mem = []
@@ -107,12 +101,12 @@ for (icpsr, bio), g in panel.groupby(['icpsr', 'bioname']):
     rec = {'icpsr': int(icpsr), 'name': bio, 'party': g.party.iloc[-1], 'dim1': None if pd.isna(g.nominate_dim1.iloc[0]) else round(float(g.nominate_dim1.iloc[0]), 3),
            'terms': {}}
     for r in g.itertuples():
-        rec['terms'][int(r.congress)] = {'sd': f'{r.state}-{int(r.district)}', 'c': [k for k in CAUCUS if getattr(r, k) == 1]}
+        rec['terms'][int(r.congress)] = {'sd': f'{r.state}-{int(r.district)}', 'c': [k for k in list(CAUCUS) + list(AGG_ONLY) if getattr(r, k) == 1]}
     mem.append(rec)
 json.dump(mem, open(os.path.join(DATA, 'members.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 
 DISCLAIMER = ('면책: 이 사이트는 연구 목적으로 공개 자료를 정리한 것이며, 각 코커스의 공식 명단이나 원 출처를 대체하지 않습니다. '
-              '106–115대 계파 소속은 Clarke(2020)의 복제 자료(Harvard Dataverse, doi:10.7910/DVN/SYYMJ0)에서 가져왔습니다. '
+              '106–115대 계파 소속(의원별 명단 포함)은 Clarke(2020)의 복제 자료(Harvard Dataverse, doi:10.7910/DVN/SYYMJ0)를 그대로 옮긴 것입니다. '
               '이 자료에는 명시된 이용 라이선스가 없으며, 이 사이트는 원저자나 학술지(AJPS)의 승인·보증을 받지 않았습니다. '
               '116–119대 명단은 공식 페이지 보관본과 2차 출처(Wikipedia, Washington Post)를 옮긴 것으로 원 출처의 오류나 누락이 그대로 있을 수 있습니다. '
               '오류를 발견하시면 알려 주십시오.')
@@ -217,7 +211,7 @@ for k, (ko, en, col, desc) in CAUCUS.items():
             stt = st.get(r.icpsr)
             rows.append(f'<tr><td>{E(r.bioname)}</td><td>{r.party}</td><td>{r.state}-{int(r.district)}</td>'
                         f'<td class="num">{"" if pd.isna(r.nominate_dim1) else f"{r.nominate_dim1:.3f}"}</td>'
-                        f'<td class="st-{stt}">{STATUS.get(stt, "") if stt else ("–" if c == 116 else "")}</td><td>{links}</td></tr>')
+                        f'<td class="st-{stt}">{STATUS.get(stt, "") if stt else ""}</td><td>{links}</td></tr>')
         lefts = ''
         if len(left):
             lefts = '<p style="font-size:0.85rem;color:var(--muted)">직전 대 대비 이탈: ' + '; '.join(
@@ -242,8 +236,9 @@ for k, (ko, en, col, desc) in CAUCUS.items():
 <h2>구성원 변화 (직전 대 대비)</h2>
 <p class="lede" style="font-size:0.88rem">두 대 모두 출처가 있을 때만 비교합니다. 강조된 행은 출처 계열이 바뀐 쌍이라 측정 방식 차이가 섞일 수 있습니다. 106–115대는 Clarke(2020) 자료의 집계입니다.</p>
 {''.join(t)}
-<h2>대별 명단 (116–119대)</h2>
-<p class="lede" style="font-size:0.88rem">NOMINATE는 Voteview DW-NOMINATE 1차원(의원별 단일 값, 2026-10-10판). [1], [2]는 그 의원이 실린 원 출처(보관본·개정판) 링크입니다. 116대의 "직전 대 대비"는 115대 의원 단위 자료를 공개하지 않아 비워 둡니다.</p>
+<h2>대별 명단 (106–119대)</h2>
+<p class="lede" style="font-size:0.88rem">NOMINATE는 Voteview DW-NOMINATE 1차원(의원별 단일 값, 2026-10-10판). [1], [2]는 그 의원이 실린 원 출처(보관본·개정판) 링크입니다. 직전 대에 출처가 없으면 "직전 대 대비"를 비워 둡니다.</p>
+<div class="note">106–115대 명단은 Clarke(2020) 복제 자료(doi:10.7910/DVN/SYYMJ0)의 수기 코딩을 그대로 옮긴 것입니다. 이 자료에는 계파·대별 개별 출처가 공개돼 있지 않고 명시된 이용 라이선스도 없으며, 이 사이트는 원저자의 승인·보증을 받지 않았습니다. 원자료 오류는 바로잡지 않았습니다(예: 114대 RSC·HFC에 113대에만 재직한 의원 1명이 코딩돼 있어 집계에서 빠짐).</div>
 {''.join(ros)}'''
     open(os.path.join(ROOT, f'caucus-{k}.html'), 'w').write(page(f'{ko} · 미국 의회 정당 계파', f'caucus-{k}.html', body, f'{en} 대별 소속 의원'))
 
@@ -263,17 +258,17 @@ body = f'''<h1>이념 분포</h1>
 open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원의원 DW-NOMINATE 분포'))
 
 # ---------------- 의원 검색 ----------------
-opts = ''.join(f'<option value="{k}">{v[0]}</option>' for k, v in CAUCUS.items())
-body = f'''<h1>의원 검색</h1><p class="lede">116–119대 하원의원의 대별 계파 소속입니다. 이름(영문)으로 찾거나 대·계파로 거릅니다.</p>
+opts = ''.join(f'<option value="{k}">{v[0]}</option>' for k, v in CAUCUS.items()) + ''.join(f'<option value="{k}">{v}</option>' for k, v in AGG_ONLY.items())
+body = f'''<h1>의원 검색</h1><p class="lede">106–119대 하원의원의 대별 계파 소속입니다. 이름(영문)으로 찾거나 대·계파로 거릅니다. 106–115대 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단(HFC는 Wikipedia, 119대 RSC는 WaPo)입니다.</p>
 <div class="controls"><input id="q" type="search" placeholder="이름 (예: Jayapal)" aria-label="이름 검색">
-<select id="cong" aria-label="대"><option value="">모든 대</option>{''.join(f'<option value="{c}">{c}대</option>' for c in range(119, 115, -1))}</select>
+<select id="cong" aria-label="대"><option value="">모든 대</option>{''.join(f'<option value="{c}">{c}대</option>' for c in range(119, 105, -1))}</select>
 <select id="cau" aria-label="계파"><option value="">모든 계파</option>{opts}</select>
 <select id="party" aria-label="정당"><option value="">모든 정당</option><option value="D">민주당</option><option value="R">공화당</option></select></div>
 <p id="count" style="font-size:0.85rem;color:var(--muted)"></p>
-<div class="table-wrap"><table id="tbl"><thead><tr><th>의원</th><th>정당</th><th class="num">NOMINATE 1차원</th><th>116대</th><th>117대</th><th>118대</th><th>119대</th></tr></thead><tbody></tbody></table></div>
-<script>window.CAUCUS_NAMES = {json.dumps({k: v[0] for k, v in CAUCUS.items()}, ensure_ascii=False)};</script>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>의원</th><th>정당</th><th class="num">NOMINATE 1차원</th><th>재직 대(선거구)</th><th>계파 소속 이력</th></tr></thead><tbody></tbody></table></div>
+<script>window.CAUCUS_NAMES = {json.dumps({**{k: v[0] for k, v in CAUCUS.items()}, **AGG_ONLY}, ensure_ascii=False)};</script>
 <script src="assets/members.js"></script>'''
-open(os.path.join(ROOT, 'members.html'), 'w').write(page('의원 검색 · 미국 의회 정당 계파', 'members.html', body, '116–119대 하원의원 계파 소속 검색'))
+open(os.path.join(ROOT, 'members.html'), 'w').write(page('의원 검색 · 미국 의회 정당 계파', 'members.html', body, '106–119대 하원의원 계파 소속 검색'))
 
 # ---------------- 출처와 방법 ----------------
 body = '''<h1>출처와 방법</h1>
@@ -303,15 +298,15 @@ body = '''<h1>출처와 방법</h1>
 <li>출처 표기 오류 보정: RSC 2023-04-18판의 Blake Moore·Barry Moore 주 표기 뒤바뀜(이름으로 연결), "Marc Veasy"→Veasey, "Mike Haridopolis"→Haridopolos.</li>
 </ul>
 <h2>공개 범위와 면책</h2>
-<p>Clarke(2020) 복제 자료의 Dataverse 이용 조건에는 명시된 라이선스가 없고 다음 문구만 있다: "This dataset is made available with limited information on how it can be used. You may wish to communicate with the Contact(s) specified before use." 재배포를 금지하는 조항은 없다. 이 사이트는 학술 목적으로 106–115대의 계파별 인원·변화 집계와 대별 이념 분포 그림을 싣고, 의원 단위 CSV는 116–119대만 제공한다.</p>
+<p>Clarke(2020) 복제 자료의 Dataverse 이용 조건에는 명시된 라이선스가 없고 다음 문구만 있다: "This dataset is made available with limited information on how it can be used. You may wish to communicate with the Contact(s) specified before use." 재배포를 금지하는 조항은 없다. 재배포를 금지하는 조항이 없고 학술 목적에 부합한다고 보아, 이 사이트는 106–115대도 Clarke(2020)에 근거해 의원 단위 명단·변화·CSV를 싣는다. 해당 구간은 페이지마다 Clarke 근거임을 표시한다.</p>
 <p>''' + DISCLAIMER + '''</p>
 <h2>내려받기</h2>
 <ul>
 <li><a href="data/caucus_counts_106_119.csv">caucus_counts_106_119.csv</a> — 계파 × 대 인원, 출처 유형, 스냅샷 날짜</li>
 <li><a href="data/caucus_change_summary_106_119.csv">caucus_change_summary_106_119.csv</a> — 계파별 직전 대 대비 변화 집계</li>
-<li><a href="data/members_116_119.csv">members_116_119.csv</a> — 116–119대 하원의원 × 대, 계파 소속(1/0/빈칸), NOMINATE 1·2차원</li>
-<li><a href="data/caucus_change_members_117_119.csv">caucus_change_members_117_119.csv</a> — 117–119대 의원별 변화 상태</li>
-<li><a href="data/evidence_116_119.csv">evidence_116_119.csv</a> — 소속 1마다 근거 출처(보관본 URL·개정판, 날짜, 원본 sha256)</li>
+<li><a href="data/members_106_119.csv">members_106_119.csv</a> — 106–119대 하원의원 × 대, 계파 소속(1/0/빈칸), NOMINATE 1·2차원 (106–115대 소속은 Clarke 2020)</li>
+<li><a href="data/caucus_change_members_107_119.csv">caucus_change_members_107_119.csv</a> — 의원별 직전 대 대비 변화 상태</li>
+<li><a href="data/evidence_106_119.csv">evidence_106_119.csv</a> — 소속 1마다 근거 출처(Clarke DOI·보관본 URL·개정판, 날짜, 원본 sha256)</li>
 </ul>
 <h2>재검증</h2>
 <p>보관본 URL과 Wikipedia oldid는 누구나 다시 열어 확인할 수 있다. 원본 파일의 sha256이 evidence 파일에 있어, 같은 보관본을 다시 받아 동일한지 대조할 수 있다.</p>'''
