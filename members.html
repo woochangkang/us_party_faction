@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>의원 검색 · 미국 의회 정당 계파</title><meta name="description" content="116–119대 하원의원 계파 소속 검색">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css"></head>
+<body><main>
+<nav class="top"><a href="index.html" class="">개요</a> <a href="members.html" class="on">의원 검색</a> <a href="methods.html" class="">출처와 방법</a> <span style="color:var(--line)">|</span> <a href="caucus-cpc.html" class="">의회진보연합</a> <a href="caucus-ndc.html" class="">신민주연합</a> <a href="caucus-bluedog.html" class="">청견민주</a> <a href="caucus-rmsp.html" class="">메인스트리트파트너십</a> <a href="caucus-mainstreet.html" class="">메인스트리트코커스</a> <a href="caucus-rsc.html" class="">공화당연구위원회</a> <a href="caucus-hfc.html" class="">프리덤코커스</a> <a href="caucus-psc.html" class="">문제해결코커스</a></nav>
+<h1>의원 검색</h1><p class="lede">116–119대 하원의원의 대별 계파 소속입니다. 이름(영문)으로 찾거나 대·계파로 거릅니다.</p>
+<div class="controls"><input id="q" type="search" placeholder="이름 (예: Jayapal)" aria-label="이름 검색">
+<select id="cong" aria-label="대"><option value="">모든 대</option><option value="119">119대</option><option value="118">118대</option><option value="117">117대</option><option value="116">116대</option></select>
+<select id="cau" aria-label="계파"><option value="">모든 계파</option><option value="cpc">의회진보연합</option><option value="ndc">신민주연합</option><option value="bluedog">청견민주</option><option value="rmsp">메인스트리트파트너십</option><option value="mainstreet">메인스트리트코커스</option><option value="rsc">공화당연구위원회</option><option value="hfc">프리덤코커스</option><option value="psc">문제해결코커스</option></select>
+<select id="party" aria-label="정당"><option value="">모든 정당</option><option value="D">민주당</option><option value="R">공화당</option></select></div>
+<p id="count" style="font-size:0.85rem;color:var(--muted)"></p>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>의원</th><th>정당</th><th class="num">NOMINATE 1차원</th><th>116대</th><th>117대</th><th>118대</th><th>119대</th></tr></thead><tbody></tbody></table></div>
+<script>window.CAUCUS_NAMES = {"cpc": "의회진보연합", "ndc": "신민주연합", "bluedog": "청견민주", "rmsp": "메인스트리트파트너십", "mainstreet": "메인스트리트코커스", "rsc": "공화당연구위원회", "hfc": "프리덤코커스", "psc": "문제해결코커스"};</script>
+<script src="assets/members.js"></script>
+<footer>강우창 · 고려대학교 · 데이터 기준일 2026-10-10 · 원자료와 재현 스크립트 출처는 <a href="methods.html">출처와 방법</a> 참조</footer>
+</main></body></html>
