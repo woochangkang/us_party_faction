@@ -1497,33 +1497,33 @@ cpc,118,119,29106,"WATERS, Maxine",stayed
 cpc,118,119,21538,"WATSON COLEMAN, Bonnie",stayed
 cpc,118,119,22156,"WILLIAMS, Nikema",stayed
 cpc,118,119,21118,"WILSON, Frederica",stayed
-hfc,114,115,15085,"BARTON, Joe Linus",joined_from_house
-hfc,114,115,21564,"DAVIDSON, Warren",joined_from_house
 hfc,114,115,20527,"GOHMERT, Louie",joined_from_house
 hfc,114,115,21705,"BIGGS, Andrew S.",joined_new_member
 hfc,114,115,21708,"BUDD, Theodore Paul",joined_new_member
+hfc,114,115,21758,"CLOUD, Michael",joined_new_member
 hfc,114,115,21719,"GAETZ, Matthew L. II",joined_new_member
 hfc,114,115,21721,"GARRETT, Thomas Alexander Jr.",joined_new_member
 hfc,114,115,21727,"JOHNSON, Mike",joined_new_member
 hfc,114,115,21757,"LESKO, Debbie",joined_new_member
 hfc,114,115,21753,"NORMAN, Ralph",joined_new_member
+hfc,114,115,21377,"CLAWSON, Curt",left_house
 hfc,114,115,20918,"FLEMING, John",left_house
 hfc,114,115,20336,"GARRETT, Scott",left_house
 hfc,114,115,21134,"HUELSKAMP, Tim",left_house
 hfc,114,115,20953,"LUMMIS, Cynthia M.",left_house
+hfc,114,115,21190,"RIBBLE, Reid",left_house
 hfc,114,115,29500,"SALMON, Matthew James",left_house
 hfc,114,115,21100,"STUTZMAN, Marlin",left_house
-hfc,114,115,20704,"LAMBORN, Doug",left_still_in_house
-hfc,114,115,21515,"LOUDERMILK, Barry D.",left_still_in_house
-hfc,114,115,20528,"POE, Ted",left_still_in_house
-hfc,114,115,21357,"ROTHFUS, Keith",left_still_in_house
+hfc,114,115,20903,"McCLINTOCK, Tom",left_still_in_house
 hfc,114,115,21143,"AMASH, Justin",stayed
 hfc,114,115,21551,"BABIN, Brian",stayed
+hfc,114,115,15085,"BARTON, Joe Linus",stayed
 hfc,114,115,21520,"BLUM, Rod",stayed
 hfc,114,115,21553,"BRAT, David A.",stayed
 hfc,114,115,21354,"BRIDENSTINE, Jim",stayed
 hfc,114,115,21193,"BROOKS, Mo",stayed
 hfc,114,115,21510,"BUCK, Kenneth Robert",stayed
+hfc,114,115,21564,"DAVIDSON, Warren",stayed
 hfc,114,115,21318,"DESANTIS, Ron",stayed
 hfc,114,115,21179,"DESJARLAIS, Scott",stayed
 hfc,114,115,21174,"DUNCAN, Jeff",stayed
@@ -1534,29 +1534,27 @@ hfc,114,115,21139,"HARRIS, Andy",stayed
 hfc,114,115,21514,"HICE, Jody Brownlow",stayed
 hfc,114,115,20738,"JORDAN, Jim",stayed
 hfc,114,115,21125,"LABRADOR, Raúl R.",stayed
+hfc,114,115,21515,"LOUDERMILK, Barry D.",stayed
 hfc,114,115,21348,"MEADOWS, Mark",stayed
 hfc,114,115,21557,"MOONEY, Alex X.",stayed
 hfc,114,115,21176,"MULVANEY, Mick",stayed
 hfc,114,115,21500,"PALMER, Gary James",stayed
 hfc,114,115,20337,"PEARCE, Stevan",stayed
 hfc,114,115,21356,"PERRY, Scott",stayed
+hfc,114,115,20528,"POE, Ted",stayed
 hfc,114,115,20909,"POSEY, Bill",stayed
+hfc,114,115,21357,"ROTHFUS, Keith",stayed
 hfc,114,115,29565,"SANFORD, Mark",stayed
 hfc,114,115,21105,"SCHWEIKERT, David",stayed
 hfc,114,115,21360,"WEBER, Randy",stayed
 hfc,114,115,21317,"YOHO, Ted",stayed
-hfc,115,116,21702,"BANKS, James E.",joined_from_house
-hfc,115,116,21758,"CLOUD, Michael",joined_from_house
-hfc,115,116,20325,"KING, Steve",joined_from_house
 hfc,115,116,21986,"BISHOP, Dan",joined_new_member
 hfc,115,116,21908,"CLINE, Benjamin",joined_new_member
 hfc,115,116,21920,"FULCHER, Russell",joined_new_member
+hfc,115,116,21924,"GONZALEZ, Anthony",joined_new_member
 hfc,115,116,21926,"GREEN, Mark E.",joined_new_member
-hfc,115,116,21987,"MURPHY, Gregory Francis",joined_new_member
 hfc,115,116,21957,"RIGGLEMAN, Denver",joined_new_member
 hfc,115,116,21961,"ROY, Charles",joined_new_member
-hfc,115,116,21971,"STEUBE, W. Greg",joined_new_member
-hfc,115,116,21989,"TIFFANY, Thomas P.",joined_new_member
 hfc,115,116,21984,"WRIGHT, Ron",joined_new_member
 hfc,115,116,15085,"BARTON, Joe Linus",left_house
 hfc,115,116,21520,"BLUM, Rod",left_house
@@ -1568,13 +1566,17 @@ hfc,115,116,21721,"GARRETT, Thomas Alexander Jr.",left_house
 hfc,115,116,21125,"LABRADOR, Raúl R.",left_house
 hfc,115,116,21176,"MULVANEY, Mick",left_house
 hfc,115,116,20337,"PEARCE, Stevan",left_house
+hfc,115,116,20528,"POE, Ted",left_house
+hfc,115,116,21357,"ROTHFUS, Keith",left_house
 hfc,115,116,29565,"SANFORD, Mark",left_house
-hfc,115,116,21143,"AMASH, Justin",left_still_in_house
 hfc,115,116,21551,"BABIN, Brian",left_still_in_house
+hfc,115,116,21515,"LOUDERMILK, Barry D.",left_still_in_house
+hfc,115,116,21143,"AMASH, Justin",stayed
 hfc,115,116,21705,"BIGGS, Andrew S.",stayed
 hfc,115,116,21193,"BROOKS, Mo",stayed
 hfc,115,116,21510,"BUCK, Kenneth Robert",stayed
 hfc,115,116,21708,"BUDD, Theodore Paul",stayed
+hfc,115,116,21758,"CLOUD, Michael",stayed
 hfc,115,116,21564,"DAVIDSON, Warren",stayed
 hfc,115,116,21179,"DESJARLAIS, Scott",stayed
 hfc,115,116,21174,"DUNCAN, Jeff",stayed
@@ -1597,26 +1599,25 @@ hfc,115,116,21105,"SCHWEIKERT, David",stayed
 hfc,115,116,21360,"WEBER, Randy",stayed
 hfc,115,116,21317,"YOHO, Ted",stayed
 hfc,116,117,21724,"HIGGINS, Clay",joined_from_house
-hfc,116,117,21539,"ZELDIN, Lee M",joined_from_house
+hfc,116,117,21987,"MURPHY, Gregory Francis",joined_from_house
+hfc,116,117,21971,"STEUBE, W. Greg",joined_from_house
+hfc,116,117,21989,"TIFFANY, Thomas P.",joined_from_house
 hfc,116,117,22103,"BOEBERT, Lauren",joined_new_member
 hfc,116,117,22109,"CAWTHORN, Madison",joined_new_member
 hfc,116,117,22110,"CLYDE, Andrew S.",joined_new_member
 hfc,116,117,22111,"DONALDS, Byron",joined_new_member
 hfc,116,117,22120,"GOOD, Bob",joined_new_member
 hfc,116,117,22121,"GREENE, Marjorie Taylor",joined_new_member
-hfc,116,117,22122,"HARSHBARGER, Diana",joined_new_member
 hfc,116,117,22123,"HERRELL, Yvette",joined_new_member
-hfc,116,117,22125,"JACKSON, Ronny",joined_new_member
 hfc,116,117,22138,"MILLER, Mary E.",joined_new_member
 hfc,116,117,22140,"MOORE, Barry",joined_new_member
-hfc,116,117,22143,"NEHLS, Troy E.",joined_new_member
 hfc,116,117,22148,"ROSENDALE, Matthew M., Sr.",joined_new_member
-hfc,116,117,20325,"KING, Steve",left_house
+hfc,116,117,21143,"AMASH, Justin",left_house
 hfc,116,117,21348,"MEADOWS, Mark",left_house
 hfc,116,117,21957,"RIGGLEMAN, Denver",left_house
 hfc,116,117,21317,"YOHO, Ted",left_house
-hfc,116,117,21984,"WRIGHT, Ron",left_still_in_house
-hfc,116,117,21702,"BANKS, James E.",stayed
+hfc,116,117,21719,"GAETZ, Matthew L. II",left_still_in_house
+hfc,116,117,21727,"JOHNSON, Mike",left_still_in_house
 hfc,116,117,21705,"BIGGS, Andrew S.",stayed
 hfc,116,117,21986,"BISHOP, Dan",stayed
 hfc,116,117,21193,"BROOKS, Mo",stayed
@@ -1628,44 +1629,39 @@ hfc,116,117,21564,"DAVIDSON, Warren",stayed
 hfc,116,117,21179,"DESJARLAIS, Scott",stayed
 hfc,116,117,21174,"DUNCAN, Jeff",stayed
 hfc,116,117,21920,"FULCHER, Russell",stayed
-hfc,116,117,21719,"GAETZ, Matthew L. II",stayed
 hfc,116,117,20527,"GOHMERT, Louie",stayed
+hfc,116,117,21924,"GONZALEZ, Anthony",stayed
 hfc,116,117,21103,"GOSAR, Paul",stayed
 hfc,116,117,21926,"GREEN, Mark E.",stayed
 hfc,116,117,21191,"GRIFFITH, H. Morgan",stayed
 hfc,116,117,21139,"HARRIS, Andy",stayed
 hfc,116,117,21514,"HICE, Jody Brownlow",stayed
-hfc,116,117,21727,"JOHNSON, Mike",stayed
 hfc,116,117,20738,"JORDAN, Jim",stayed
 hfc,116,117,21757,"LESKO, Debbie",stayed
 hfc,116,117,21557,"MOONEY, Alex X.",stayed
-hfc,116,117,21987,"MURPHY, Gregory Francis",stayed
 hfc,116,117,21753,"NORMAN, Ralph",stayed
 hfc,116,117,21500,"PALMER, Gary James",stayed
 hfc,116,117,21356,"PERRY, Scott",stayed
 hfc,116,117,20909,"POSEY, Bill",stayed
 hfc,116,117,21961,"ROY, Charles",stayed
 hfc,116,117,21105,"SCHWEIKERT, David",stayed
-hfc,116,117,21971,"STEUBE, W. Greg",stayed
-hfc,116,117,21989,"TIFFANY, Thomas P.",stayed
 hfc,116,117,21360,"WEBER, Randy",stayed
+hfc,116,117,21984,"WRIGHT, Ron",stayed
+hfc,117,118,22122,"HARSHBARGER, Diana",joined_from_house
+hfc,117,118,22143,"NEHLS, Troy E.",joined_from_house
 hfc,117,118,22303,"BRECHEEN, Josh",joined_new_member
 hfc,117,118,22305,"BURLISON, Eric",joined_new_member
-hfc,117,118,22310,"COLLINS, Mike",joined_new_member
 hfc,117,118,22311,"CRANE, Eli",joined_new_member
-hfc,117,118,22325,"HAGEMAN, Harriet",joined_new_member
 hfc,117,118,22343,"LUNA, Anna",joined_new_member
 hfc,117,118,22357,"OGLES, Andy",joined_new_member
-hfc,117,118,22364,"SELF, Keith",joined_new_member
 hfc,117,118,21193,"BROOKS, Mo",left_house
 hfc,117,118,21708,"BUDD, Theodore Paul",left_house
 hfc,117,118,22109,"CAWTHORN, Madison",left_house
 hfc,117,118,20527,"GOHMERT, Louie",left_house
+hfc,117,118,21924,"GONZALEZ, Anthony",left_house
 hfc,117,118,22123,"HERRELL, Yvette",left_house
 hfc,117,118,21514,"HICE, Jody Brownlow",left_house
-hfc,117,118,21539,"ZELDIN, Lee M",left_house
-hfc,117,118,21702,"BANKS, James E.",left_still_in_house
-hfc,117,118,21105,"SCHWEIKERT, David",left_still_in_house
+hfc,117,118,21984,"WRIGHT, Ron",left_house
 hfc,117,118,21705,"BIGGS, Andrew S.",stayed
 hfc,117,118,21986,"BISHOP, Dan",stayed
 hfc,117,118,22103,"BOEBERT, Lauren",stayed
@@ -1678,55 +1674,45 @@ hfc,117,118,21179,"DESJARLAIS, Scott",stayed
 hfc,117,118,22111,"DONALDS, Byron",stayed
 hfc,117,118,21174,"DUNCAN, Jeff",stayed
 hfc,117,118,21920,"FULCHER, Russell",stayed
-hfc,117,118,21719,"GAETZ, Matthew L. II",stayed
 hfc,117,118,22120,"GOOD, Bob",stayed
 hfc,117,118,21103,"GOSAR, Paul",stayed
 hfc,117,118,21926,"GREEN, Mark E.",stayed
 hfc,117,118,22121,"GREENE, Marjorie Taylor",stayed
 hfc,117,118,21191,"GRIFFITH, H. Morgan",stayed
 hfc,117,118,21139,"HARRIS, Andy",stayed
-hfc,117,118,22122,"HARSHBARGER, Diana",stayed
 hfc,117,118,21724,"HIGGINS, Clay",stayed
-hfc,117,118,22125,"JACKSON, Ronny",stayed
-hfc,117,118,21727,"JOHNSON, Mike",stayed
 hfc,117,118,20738,"JORDAN, Jim",stayed
 hfc,117,118,21757,"LESKO, Debbie",stayed
 hfc,117,118,22138,"MILLER, Mary E.",stayed
 hfc,117,118,21557,"MOONEY, Alex X.",stayed
 hfc,117,118,22140,"MOORE, Barry",stayed
 hfc,117,118,21987,"MURPHY, Gregory Francis",stayed
-hfc,117,118,22143,"NEHLS, Troy E.",stayed
 hfc,117,118,21753,"NORMAN, Ralph",stayed
 hfc,117,118,21500,"PALMER, Gary James",stayed
 hfc,117,118,21356,"PERRY, Scott",stayed
 hfc,117,118,20909,"POSEY, Bill",stayed
 hfc,117,118,22148,"ROSENDALE, Matthew M., Sr.",stayed
 hfc,117,118,21961,"ROY, Charles",stayed
+hfc,117,118,21105,"SCHWEIKERT, David",stayed
 hfc,117,118,21971,"STEUBE, W. Greg",stayed
 hfc,117,118,21989,"TIFFANY, Thomas P.",stayed
 hfc,117,118,21360,"WEBER, Randy",stayed
-hfc,118,119,22503,"BEGICH, Nicholas J., III",joined_new_member
-hfc,118,119,22505,"BIGGS, Sheri",joined_new_member
+hfc,118,119,22364,"SELF, Keith",joined_from_house
 hfc,118,119,22562,"FINE, Randy",joined_new_member
 hfc,118,119,22517,"GILL, Brandon",joined_new_member
-hfc,118,119,22525,"HARRIS, Mark",joined_new_member
-hfc,118,119,21100,"STUTZMAN, Marlin",joined_new_member
 hfc,118,119,21986,"BISHOP, Dan",left_house
 hfc,118,119,21510,"BUCK, Kenneth Robert",left_house
 hfc,118,119,21174,"DUNCAN, Jeff",left_house
-hfc,118,119,21719,"GAETZ, Matthew L. II",left_house
 hfc,118,119,22120,"GOOD, Bob",left_house
 hfc,118,119,21757,"LESKO, Debbie",left_house
 hfc,118,119,21557,"MOONEY, Alex X.",left_house
 hfc,118,119,20909,"POSEY, Bill",left_house
 hfc,118,119,22148,"ROSENDALE, Matthew M., Sr.",left_house
 hfc,118,119,21564,"DAVIDSON, Warren",left_still_in_house
+hfc,118,119,21926,"GREEN, Mark E.",left_still_in_house
 hfc,118,119,22121,"GREENE, Marjorie Taylor",left_still_in_house
-hfc,118,119,22125,"JACKSON, Ronny",left_still_in_house
-hfc,118,119,21727,"JOHNSON, Mike",left_still_in_house
-hfc,118,119,22343,"LUNA, Anna",left_still_in_house
-hfc,118,119,21987,"MURPHY, Gregory Francis",left_still_in_house
 hfc,118,119,22143,"NEHLS, Troy E.",left_still_in_house
+hfc,118,119,21105,"SCHWEIKERT, David",left_still_in_house
 hfc,118,119,21360,"WEBER, Randy",left_still_in_house
 hfc,118,119,21705,"BIGGS, Andrew S.",stayed
 hfc,118,119,22103,"BOEBERT, Lauren",stayed
@@ -1735,27 +1721,25 @@ hfc,118,119,22305,"BURLISON, Eric",stayed
 hfc,118,119,21908,"CLINE, Benjamin",stayed
 hfc,118,119,21758,"CLOUD, Michael",stayed
 hfc,118,119,22110,"CLYDE, Andrew S.",stayed
-hfc,118,119,22310,"COLLINS, Mike",stayed
 hfc,118,119,22311,"CRANE, Eli",stayed
 hfc,118,119,21179,"DESJARLAIS, Scott",stayed
 hfc,118,119,22111,"DONALDS, Byron",stayed
 hfc,118,119,21920,"FULCHER, Russell",stayed
 hfc,118,119,21103,"GOSAR, Paul",stayed
-hfc,118,119,21926,"GREEN, Mark E.",stayed
 hfc,118,119,21191,"GRIFFITH, H. Morgan",stayed
-hfc,118,119,22325,"HAGEMAN, Harriet",stayed
 hfc,118,119,21139,"HARRIS, Andy",stayed
 hfc,118,119,22122,"HARSHBARGER, Diana",stayed
 hfc,118,119,21724,"HIGGINS, Clay",stayed
 hfc,118,119,20738,"JORDAN, Jim",stayed
+hfc,118,119,22343,"LUNA, Anna",stayed
 hfc,118,119,22138,"MILLER, Mary E.",stayed
 hfc,118,119,22140,"MOORE, Barry",stayed
+hfc,118,119,21987,"MURPHY, Gregory Francis",stayed
 hfc,118,119,21753,"NORMAN, Ralph",stayed
 hfc,118,119,22357,"OGLES, Andy",stayed
 hfc,118,119,21500,"PALMER, Gary James",stayed
 hfc,118,119,21356,"PERRY, Scott",stayed
 hfc,118,119,21961,"ROY, Charles",stayed
-hfc,118,119,22364,"SELF, Keith",stayed
 hfc,118,119,21971,"STEUBE, W. Greg",stayed
 hfc,118,119,21989,"TIFFANY, Thomas P.",stayed
 mainstreet,118,119,22300,"ALFORD, Mark",joined_from_house

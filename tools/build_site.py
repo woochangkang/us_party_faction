@@ -70,7 +70,7 @@ def stats(k):
 
 AGG_ONLY = {'teaparty': 'Tea Party Caucus', 'liberty': 'Liberty Caucus', 'populist': 'Populist Caucus'}
 SRC_LABEL = {'clarke2020': 'Clarke(2020) 수기 코딩', 'wayback_official': '공식 명단(Wayback 보관본)',
-             'official_current': '공식 명단(현재본)', 'wikipedia_secondary': 'Wikipedia(2차)', 'wapo_secondary': 'WaPo(2차)'}
+             'official_current': '공식 명단(현재본)', 'wikipedia_secondary': 'Wikipedia(2차)', 'wapo_secondary': 'WaPo(2차)', 'green_list': 'Matthew Green 명단(저자 제공)'}
 STATUS = {'stayed': '잔류', 'joined_new_member': '가입(신인·복귀)', 'joined_from_house': '가입(기존 의원)',
           'left_still_in_house': '이탈(하원 잔류)', 'left_house': '이탈(하원 퇴장)'}
 CONGRESS_YEARS = {c: f'{1789 + 2 * (c - 1)}–{1789 + 2 * (c - 1) + 2}' for c in range(106, 120)}
@@ -89,7 +89,7 @@ panel = pd.read_csv(os.path.join(SRC, 'roster_panel.csv'))
 counts.drop(columns=['n_icpsr_in_sources']).to_csv(os.path.join(DATA, 'caucus_counts_106_119.csv'), index=False)
 summ.to_csv(os.path.join(DATA, 'caucus_change_summary_106_119.csv'), index=False)
 pcols = ['congress', 'icpsr', 'bioname', 'bioguide_id', 'party', 'state', 'district', 'nominate_dim1', 'nominate_dim2'] + \
-        ['cpc', 'ndc', 'bluedog', 'rmsp', 'mainstreet', 'rsc', 'hfc', 'psc', 'teaparty', 'liberty', 'populist']
+        ['cpc', 'ndc', 'bluedog', 'rmsp', 'mainstreet', 'rsc', 'hfc', 'psc', 'teaparty', 'liberty', 'populist', 'hfc_clarke', 'hfc_wiki']
 panel[pcols].to_csv(os.path.join(DATA, 'members_106_119.csv'), index=False)
 trans.to_csv(os.path.join(DATA, 'caucus_change_members_107_119.csv'), index=False)
 ev[['caucus', 'congress', 'icpsr', 'bioname', 'source_type', 'source_url', 'snapshot_date', 'sha256', 'note']] \
@@ -108,7 +108,8 @@ json.dump(mem, open(os.path.join(DATA, 'members.json'), 'w'), ensure_ascii=False
 DISCLAIMER = ('면책: 이 사이트는 연구 목적으로 공개 자료를 정리한 것이며, 각 코커스의 공식 명단이나 원 출처를 대체하지 않습니다. '
               '106–115대 계파 소속(의원별 명단 포함)은 Clarke(2020)의 복제 자료(Harvard Dataverse, doi:10.7910/DVN/SYYMJ0)를 그대로 옮긴 것입니다. '
               '이 자료에는 명시된 이용 라이선스가 없으며, 이 사이트는 원저자나 학술지(AJPS)의 승인·보증을 받지 않았습니다. '
-              '116–119대 명단은 공식 페이지 보관본과 2차 출처(Wikipedia, Washington Post)를 옮긴 것으로 원 출처의 오류나 누락이 그대로 있을 수 있습니다. '
+              '114–119대 프리덤코커스 소속은 Matthew Green이 정리한 명단(저자 제공, 출처를 밝히는 조건으로 사용 허락)을 따릅니다. '
+              '116–119대 다른 계파 명단은 공식 페이지 보관본과 2차 출처(Wikipedia, Washington Post)를 옮긴 것으로 원 출처의 오류나 누락이 그대로 있을 수 있습니다. '
               '오류를 발견하시면 알려 주십시오.')
 
 # ---------------- 공통 조각 ----------------
@@ -180,7 +181,7 @@ tbl.append('</table></div>')
 agg = ', '.join(f'{v} {"·".join(str(c) for c in counts[counts.caucus == k].congress)}대' for k, v in AGG_ONLY.items())
 body = f'''<h1>미국 의회 정당 계파</h1>
 <p class="lede">미국 하원 이념 계파(코커스)의 소속 의원을 106–119대(1999–2026)에 걸쳐 추적합니다. 모든 수치는 출처 명단에서 센 값이며, 출처가 없는 칸은 비워 두었습니다.</p>
-<div class="note">115대까지는 Clarke(2020)의 수기 코딩 자료, 116대부터는 각 코커스 공식 회원 페이지의 보관본(Wayback)을 씁니다. 두 구간 사이의 인원 변화에는 실제 변화와 측정 방식 차이가 섞여 있을 수 있습니다. 프리덤코커스는 공식 명단이 없어 Wikipedia 회원 목록(2차)을 씁니다.</div>
+<div class="note">115대까지는 Clarke(2020)의 수기 코딩 자료, 116대부터는 각 코커스 공식 회원 페이지의 보관본(Wayback)을 씁니다. 두 구간 사이의 인원 변화에는 실제 변화와 측정 방식 차이가 섞여 있을 수 있습니다. 프리덤코커스는 공식 명단이 없어 114–119대를 Matthew Green의 명단(저자 제공)으로 씁니다.</div>
 <h2>계파별 대별 인원</h2>{LEGEND}<div class="grid">{''.join(cards)}</div>
 <h2>표로 보기</h2>
 <p class="lede" style="font-size:0.88rem">* = 2차 출처. 116–119대 값은 그 대의 스냅샷 중 하나 이상에 이름이 실린 의원 수입니다. Clarke 자료에만 있는 계파: {agg}.</p>
@@ -209,7 +210,12 @@ for k, (ko, en, col, desc) in CAUCUS.items():
             links = ' '.join(f'<a href="{E(u)}" title="{E(str(d))}">[{i + 1}]</a>' for i, (u, d) in
                              enumerate(e[['source_url', 'snapshot_date']].drop_duplicates('source_url').itertuples(index=False))) if e is not None else ''
             stt = st.get(r.icpsr)
-            rows.append(f'<tr><td>{E(r.bioname)}</td><td>{r.party}</td><td>{r.state}-{int(r.district)}</td>'
+            tags = ''
+            if e is not None:
+                notes = ' '.join(e.note.dropna().astype(str))
+                if 'membership uncertain' in notes: tags += ' <span class="tag">불확실</span>'
+                if 'mid-Congress' in notes: tags += ' <span class="tag">회기 중 변동</span>'
+            rows.append(f'<tr><td>{E(r.bioname)}{tags}</td><td>{r.party}</td><td>{r.state}-{int(r.district)}</td>'
                         f'<td class="num">{"" if pd.isna(r.nominate_dim1) else f"{r.nominate_dim1:.3f}"}</td>'
                         f'<td class="st-{stt}">{STATUS.get(stt, "") if stt else ""}</td><td>{links}</td></tr>')
         lefts = ''
@@ -226,8 +232,17 @@ for k, (ko, en, col, desc) in CAUCUS.items():
         extra = ('<div class="note">Wikipedia RMSP 문서 2026-09-25판(oldid 1376718157)에는 "the partnership listed nine U.S. senators and all 91 members of the '
                  'Main Street Caucus as being affiliated with it"라고 적혀 있습니다. 두 조직은 이 사이트에서 별도 계열로 집계합니다.</div>')
     if k == 'hfc':
-        extra = ('<div class="note">프리덤코커스는 회원 명단을 공개하지 않습니다. 116–119대 값은 Wikipedia "Freedom Caucus" 문서의 회원 목록(대마다 2개 판, oldid 고정)에 '
-                 '이름이 실린 의원입니다. 문서 본문의 인원 문구와 목록 길이가 다를 수 있습니다(예: 2024-11-23판 본문 "at least 39", 목록 34명).</div>')
+        xc = ['<div class="table-wrap"><table><tr><th>대</th><th class="num">Green 명단</th><th class="num">Clarke(2020)</th><th class="num">Wikipedia</th><th class="num">Green∩대조</th></tr>']
+        for c in range(114, 120):
+            d = FULL[FULL.congress == c]; g = set(d.icpsr[d.hfc == 1])
+            other = 'hfc_clarke' if c <= 115 else 'hfc_wiki'; o = set(d.icpsr[d[other] == 1])
+            xc.append(f'<tr><td>{c}</td><td class="num">{len(g)}</td><td class="num">{len(o) if c <= 115 else "–"}</td>'
+                      f'<td class="num">{len(o) if c >= 116 else "–"}</td><td class="num">{len(g & o)}</td></tr>')
+        xc.append('</table></div>')
+        extra = ('<div class="note">프리덤코커스는 회원 명단을 공개하지 않습니다. 114–119대 소속은 <b>Matthew Green이 정리한 HFC 소속 명단</b>(xlsx, 저자 제공, '
+                 '출처를 밝히는 조건으로 사용 허락)을 따릅니다. 원 명단에서 "membership uncertain"으로 표시된 의원은 명단 표에 <span class="tag">불확실</span>, '
+                 '회기 중 가입·탈퇴로 표시된 의원은 <span class="tag">회기 중 변동</span>으로 표시합니다. 원 명단의 후보 목록은 세지 않았습니다. '
+                 '아래 표는 다른 출처(Clarke 2020, Wikipedia 회원 목록)와의 대조입니다.</div>' + ''.join(xc))
     if k == 'rsc':
         extra = '<div class="note">RSC는 2025-01-25 이후 공식 명단을 공개하지 않아, 119대 값은 Washington Post(2025-05-20) 기사 표(2차)입니다.</div>'
     body = f'''<h1>{ko}</h1><p class="lede">{en} — {desc}</p>
@@ -253,13 +268,13 @@ for c in range(119, 105, -1):
                 f'style="width:100%;max-width:880px;height:auto;display:block;margin:8px 0"></details>')
 body = f'''<h1>이념 분포</h1>
 <p class="lede">대마다 하원의원을 DW-NOMINATE 1차원(가로, 진보–보수)과 2차원(세로) 위에 찍었습니다. 색은 당적, 모양은 계파입니다.</p>
-<div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단(HFC는 Wikipedia 2차)입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
+<div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단입니다. HFC는 114대부터 Matthew Green 명단입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
 {"".join(figs)}'''
 open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원의원 DW-NOMINATE 분포'))
 
 # ---------------- 의원 검색 ----------------
 opts = ''.join(f'<option value="{k}">{v[0]}</option>' for k, v in CAUCUS.items()) + ''.join(f'<option value="{k}">{v}</option>' for k, v in AGG_ONLY.items())
-body = f'''<h1>의원 검색</h1><p class="lede">106–119대 하원의원의 대별 계파 소속입니다. 이름(영문)으로 찾거나 대·계파로 거릅니다. 106–115대 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단(HFC는 Wikipedia, 119대 RSC는 WaPo)입니다.</p>
+body = f'''<h1>의원 검색</h1><p class="lede">106–119대 하원의원의 대별 계파 소속입니다. 이름(영문)으로 찾거나 대·계파로 거릅니다. 106–115대 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단(119대 RSC는 WaPo)입니다. HFC는 114–119대 Matthew Green 명단입니다.</p>
 <div class="controls"><input id="q" type="search" placeholder="이름 (예: Jayapal)" aria-label="이름 검색">
 <select id="cong" aria-label="대"><option value="">모든 대</option>{''.join(f'<option value="{c}">{c}대</option>' for c in range(119, 105, -1))}</select>
 <select id="cau" aria-label="계파"><option value="">모든 계파</option>{opts}</select>
@@ -276,7 +291,8 @@ body = '''<h1>출처와 방법</h1>
 <div class="table-wrap"><table><tr><th>대</th><th>출처</th><th>종류</th></tr>
 <tr><td>106–115</td><td>Clarke, Andrew J. 2020. "Party Sub-Brands and American Party Factions." <i>American Journal of Political Science</i>. 복제 자료 <a href="https://doi.org/10.7910/DVN/SYYMJ0">doi:10.7910/DVN/SYYMJ0</a></td><td>연구자 수기 코딩</td></tr>
 <tr><td>116–119</td><td>각 코커스 공식 회원 페이지의 Internet Archive(Wayback) 보관본. 대마다 최대 3개 시점</td><td>1차(보관본)</td></tr>
-<tr><td>116–119</td><td>Wikipedia "Freedom Caucus", "Republican Main Street Partnership" 문서의 고정 개정판(oldid)</td><td>2차</td></tr>
+<tr><td>114–119</td><td>프리덤코커스: Matthew Green, "House Freedom Caucus Membership List"(xlsx, 저자 제공, 출처 표기 조건으로 사용 허락). 114대는 Matt Fuller 기사(2015-07·09)·Pew(2015-10)·개별 기사, 115대부터는 직전 대 명단을 기준으로 하원 이탈·탈퇴 보도를 반영하고 신규 가입 보도를 추가, 118대는 Newsweek·Pew(2023-01-23)와 대조(작성자 설명). 본 명단만 소속으로 세고, 후보 목록("Other Possible Members" 등)은 세지 않음</td><td>연구자 수집</td></tr>
+<tr><td>116–119</td><td>Wikipedia "Freedom Caucus"(HFC 대조용), "Republican Main Street Partnership"(RMSP 대조용) 문서의 고정 개정판(oldid)</td><td>2차</td></tr>
 <tr><td>119</td><td>RSC: Washington Post 2025-05-20 기사(Dormido &amp; Sotomayor) 표</td><td>2차</td></tr>
 <tr><td>전 기간</td><td>의원 식별·이념 점수: <a href="https://voteview.com/data">Voteview</a> HSall_members.csv (2026-10-10 접근)</td><td>—</td></tr>
 </table></div>
@@ -293,7 +309,7 @@ body = '''<h1>출처와 방법</h1>
 <ul>
 <li>Main Street Caucus 116–117대, Problem Solvers Caucus 116–117대: 공식 페이지 보관본 없음.</li>
 <li>RMSP 116대는 2019년 보관본만 있음(2020년 없음).</li>
-<li>Clarke 자료에는 CPC 106대, RSC 106–107대가 없다. 114대 RSC·HFC에는 113대에만 재직한 의원 1명(icpsr 21320)이 코딩돼 있어 이 사이트 집계에서 빠진다(Clarke Table1보다 1명 적음).</li>
+<li>프리덤코커스 114–115대는 Clarke(2020)에도 코딩돼 있으나 이 사이트는 Green 명단을 쓴다(대조표는 프리덤코커스 페이지). Clarke 자료에는 CPC 106대, RSC 106–107대가 없다. 114대 RSC·HFC에는 113대에만 재직한 의원 1명(icpsr 21320)이 코딩돼 있어 이 사이트 집계에서 빠진다(Clarke Table1보다 1명 적음).</li>
 <li>RMSP(외부 단체 Republican Main Street Partnership)와 Main Street Caucus(하원 코커스)는 별도 계열이다.</li>
 <li>출처 표기 오류 보정: RSC 2023-04-18판의 Blake Moore·Barry Moore 주 표기 뒤바뀜(이름으로 연결), "Marc Veasy"→Veasey, "Mike Haridopolis"→Haridopolos.</li>
 </ul>

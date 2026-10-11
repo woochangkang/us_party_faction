@@ -68,12 +68,12 @@ rsc,116,149,wayback_official,3,2019-05-24; 2020-02-11; 2020-11-20
 rsc,117,164,wayback_official,3,2021-04-18; 2022-01-22; 2022-11-16
 rsc,118,180,wayback_official,3,2023-04-18; 2024-01-11; 2024-11-13
 rsc,119,182,wapo_secondary,1,2025-05-20
-hfc,114,38,clarke2020,0,
-hfc,115,38,clarke2020,0,
-hfc,116,38,wikipedia_secondary,2,2019-06-23; 2020-11-30
-hfc,117,48,wikipedia_secondary,2,2021-06-25; 2022-11-30
-hfc,118,47,wikipedia_secondary,2,2023-06-30; 2024-11-23
-hfc,119,36,wikipedia_secondary,2,2025-06-30; 2026-10-05
+hfc,114,42,green_list,0,
+hfc,115,42,green_list,0,
+hfc,116,35,green_list,0,
+hfc,117,43,green_list,0,
+hfc,118,42,green_list,0,
+hfc,119,31,green_list,0,
 teaparty,111,28,clarke2020,0,
 teaparty,112,60,clarke2020,0,
 teaparty,113,47,clarke2020,0,
@@ -89,3 +89,9 @@ rmsp_wiki,116,48,wikipedia_secondary,2,2019-06-23; 2020-11-27
 rmsp_wiki,117,66,wikipedia_secondary,2,2021-05-26; 2022-11-17
 rmsp_wiki,118,84,wikipedia_secondary,2,2023-06-01; 2024-11-18
 rmsp_wiki,119,73,wikipedia_secondary,1,2025-06-27
+hfc_clarke,114,38,clarke2020,0,
+hfc_clarke,115,38,clarke2020,0,
+hfc_wiki,116,38,wikipedia_secondary,2,2019-06-23; 2020-11-30
+hfc_wiki,117,48,wikipedia_secondary,2,2021-06-25; 2022-11-30
+hfc_wiki,118,47,wikipedia_secondary,2,2023-06-30; 2024-11-23
+hfc_wiki,119,36,wikipedia_secondary,2,2025-06-30; 2026-10-05
