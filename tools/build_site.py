@@ -131,6 +131,10 @@ DISCLAIMER = ('면책: 이 사이트는 연구 목적으로 공개 자료를 정
               '116–119대 다른 계파 명단은 공식 페이지 보관본과 2차 출처(Wikipedia, Washington Post)를 옮긴 것으로 원 출처의 오류나 누락이 그대로 있을 수 있습니다. '
               '오류를 발견하시면 알려 주십시오.')
 
+# 정적 파일 캐시 무효화용 버전(내용 해시)
+import hashlib
+AV = {f: hashlib.sha256(open(os.path.join(ROOT, 'assets', f), 'rb').read()).hexdigest()[:8] for f in ['site.css', 'members.js', 'nominate.js']}
+
 # ---------------- 공통 조각 ----------------
 def page(title, active, body, desc=''):
     nav = [('index.html', '개요'), ('nominate.html', '이념 분포'), ('members.html', '의원 검색'), ('methods.html', '출처와 방법')]
@@ -141,7 +145,7 @@ def page(title, active, body, desc=''):
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="assets/site.css"></head>
+<link rel="stylesheet" href="assets/site.css?v={AV['site.css']}"></head>
 <body><main>
 <nav class="top">{navh} <span style="color:var(--line)">|</span> {cnav}</nav>
 {body}
@@ -314,7 +318,7 @@ body = f'''<h1>이념 분포</h1>
 <div id="ntip" class="nom-tip" role="status" aria-live="polite" hidden></div>
 <div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단입니다. HFC는 114대부터 Matthew Green 명단입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
 <div class="note"><b>해석 주의.</b> (1) DW-NOMINATE는 의원 경력 전체에 하나의 값을 준다(예: Don Young은 93–117대 모든 대에서 0.283; Blum and Cowburn 2024, 104 각주 13). 따라서 이 그림에서 보이는 계파 분포의 대별 변화는 구성원이 들고 난 효과이고, 같은 의원의 입장 변화는 담지 않는다. (2) 다수당 의원이 지도부 안에 항의하는 뜻으로 반대표를 던지면 표준 척도화 모형은 이를 온건함으로 읽어, 117대 Squad와 118대 McCarthy 의장 선출에 반대한 보수 공화당 의원들이 실제보다 덜 극단적으로 추정될 수 있다(Fowler and Lewis 2026, 533–534). 다만 같은 연구는 NOMINATE에서는 이 보정의 차이가 더 작고, 대부분의 응용에서 차이가 "substantively modest"하다고 밝힌다(533, 539). 이 연구는 특정 계파(HFC·CPC)를 이름으로 다루지 않는다.</div>
-<script src="assets/nominate.js"></script>'''
+<script src="assets/nominate.js?v={AV['nominate.js']}"></script>'''
 open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원·상원 의원 DW-NOMINATE 분포'))
 
 # ---------------- 의원 검색 ----------------
@@ -327,7 +331,7 @@ body = f'''<h1>의원 검색</h1><p class="lede">106–119대 하원의원의 �
 <p id="count" style="font-size:0.85rem;color:var(--muted)"></p>
 <div class="table-wrap"><table id="tbl"><thead><tr><th>의원</th><th>정당</th><th class="num">NOMINATE 1차원</th><th>재직 대(선거구)</th><th>계파 소속 이력</th></tr></thead><tbody></tbody></table></div>
 <script>window.CAUCUS_NAMES = {json.dumps({**{k: v[0] for k, v in CAUCUS.items()}, **AGG_ONLY}, ensure_ascii=False)};</script>
-<script src="assets/members.js"></script>'''
+<script src="assets/members.js?v={AV['members.js']}"></script>'''
 open(os.path.join(ROOT, 'members.html'), 'w').write(page('의원 검색 · 미국 의회 정당 계파', 'members.html', body, '106–119대 하원의원 계파 소속 검색'))
 
 # ---------------- 출처와 방법 ----------------

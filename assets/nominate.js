@@ -61,6 +61,10 @@
         class: 'nom-mark' + (m[6] || sen ? '' : ' nom-plain') });
       if (s === 'cross') { path.setAttribute('stroke', color(m[1])); path.setAttribute('stroke-width', '2'); path.setAttribute('fill', 'none'); }
       else path.setAttribute('fill', color(m[1]));
+      // 브라우저 기본 툴팁(스크립트 hover가 동작하지 않는 환경 대비)
+      var tt = el('title', {}); tt.textContent = m[0] + ' (' + (PARTY[m[1]] || m[1]) + ', ' + m[2] + ') 1차원 ' + m[3].toFixed(3) + ', 2차원 ' + m[4].toFixed(3) +
+        (m[5].length ? ', 계파: ' + m[5].map(function (k) { return names[k] || k; }).join(', ') : '');
+      path.appendChild(tt);
       g.appendChild(path); pts.push({ x: x, y: y, m: m, el: path });
     });
     var ring = el('circle', { r: 8, class: 'nom-ring', visibility: 'hidden' }); svg.appendChild(ring);
@@ -110,7 +114,7 @@
   }
 
   function step(k) { var i = sel.selectedIndex - k; if (i >= 0 && i < sel.options.length) { sel.selectedIndex = i; render(); } }
-  fetch('data/nominate.json').then(function (r) { return r.json(); }).then(function (j) {
+  fetch('data/nominate.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (j) {
     data = j.congress; names = j.names; years = j.years;
     sel.addEventListener('change', render);
     document.getElementById('nprev').addEventListener('click', function () { step(-1); });

@@ -55,7 +55,7 @@
     }).join('');
   }
 
-  fetch('data/members.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('data/members.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     data = d.sort(function (a, b) { return a.name.localeCompare(b.name); });
     [q, cong, cau, party].forEach(function (el) { el.addEventListener('input', render); });
     render();
