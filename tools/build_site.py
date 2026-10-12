@@ -32,28 +32,47 @@ REFS = {
     'seolee': '서정건·이종곤. 2025. 「미국 의회 계파 정치와 안보정책: 의회진보연합과 프리덤코커스를 중심으로」. 『미국학논집』 57(2): 69–99.',
     'leejk': '이종곤. 2025. 「트럼프 대통령 의제와 미국 민주당 의원 법안투표: 119대 의회 초반을 중심으로」. 『글로벌정치연구』 18(2): 149–178.',
     'leef': 'Lee, Frances E. 2026. "Lessons from the House Freedom Caucus: Ideology and President Trump." <i>Political Science Quarterly</i> 141(1): 19–28.',
+    'bloch': 'Bloch Rubin, Ruth. 2022. "Organizing at the Extreme: Hardline Strategy and Institutional Design." <i>Congress &amp; the Presidency</i> 49(1): 1–30.',
+    'seoth': 'Seo, Jungkun, and Sean M. Theriault. 2012. "Moderate Caucuses in a Polarised US Congress." <i>The Journal of Legislative Studies</i> 18(2): 203–221.',
+    'lucas': 'Lucas, DeWayne L., and Iva Ellen Deutchman. 2009. "Five Factions, Two Parties: Caucus Membership in the House of Representatives, 1994–2002." <i>Congress &amp; the Presidency</i> 36(1): 58–79.',
+    'blum': 'Blum, Rachel M., and Mike Cowburn. 2024. "How Local Factions Pressure Parties: Activist Groups and Primary Contests in the Tea Party Era." <i>British Journal of Political Science</i> 54(1): 88–109.',
+    'fowler': 'Fowler, Anthony, and Jeffrey B. Lewis. 2026. "Accounting for Protest Voting in the U.S. Congress." <i>Political Analysis</i> 34(4): 529–540.',
 }
 CHAR = {  # 정독 문헌에서 확인한 서술만, 쪽수 인용
     'cpc': ['민주당의 강성 진보 계파다(서정건·이종곤 2025, 89).',
             '설립 당시 20명 남짓에서 2010년대 60–70명으로 커졌다(서정건·이종곤 2025, 73).',
             '소수인종·여성 비중이 높고 정체성 정치 관련 정책 개발에 힘써 왔다(이종곤 2025, 154).',
-            '안보 법안에서는 경쟁국과의 대립보다 협력을 강조하는 입장에서 반대하기도 했다(서정건·이종곤 2025, 81).'],
+            '안보 법안에서는 경쟁국과의 대립보다 협력을 강조하는 입장에서 반대하기도 했다(서정건·이종곤 2025, 81).',
+            '1994–2002년에는 같은 당 비소속 의원보다 정당지지점수(CQ)가 약 4.1점 높았다(Lucas and Deutchman 2009, 68).',
+            '2020년 11월 특정 법안에서 한 덩어리로 협상·투표하고 어기면 제명될 수 있는 더 엄격한 규칙을 도입하기로 했다(Bloch Rubin 2022, 25–26).'],
     'ndc': ['민주당 내 이념 중위를 형성하며 오랫동안 당내 주류였던 계파다(이종곤 2025, 154).',
-            '진보 계파보다 중도이고, 청견민주보다는 당 주류에 가깝다(Clarke 2020, 459).'],
+            '진보 계파보다 중도이고, 청견민주보다는 당 주류에 가깝다(Clarke 2020, 459).',
+            '2001–2008년 하원 민주당 의원의 약 3분의 1이 소속했다(Seo and Theriault 2012, 206).',
+            '가입은 직전 의회의 이념 점수와 이전 소속으로 가장 잘 예측되고, 선거구 당파성은 모형에 따라 유의하지 않았다(Seo and Theriault 2012, 203, 214–216).'],
     'bluedog': ['중도진보 성향으로(이종곤 2025, 154), 다른 민주당 의원에 비해 예산 감축에 특히 관심이 많다(이종곤 2025, 155).',
                 '가입 인원을 민주당 코커스의 20%로 제한하는 배타적 계파이며(Clarke 2020, 461), 구성원 다수가 합의하면 모두가 그 입장으로 표결하는 구속 규칙을 둔다(Clarke 2020, 454).',
-                'Clarke(2020)의 분석에서 평균 이념 위치가 의회진보연합보다 0.28 보수 쪽이다(Clarke 2020, 459).'],
+                'Clarke(2020)의 분석에서 평균 이념 위치가 의회진보연합보다 0.28 보수 쪽이다(Clarke 2020, 459).',
+                '1994–2002년에는 같은 당 비소속 의원보다 정당지지점수(CQ)가 약 10.8점 낮아, 비교한 다섯 계파 가운데 당과 가장 많이 달리 투표했다(Lucas and Deutchman 2009, 68).',
+                '신민주연합과 비슷한 가입 요인을 보이지만 남부 색채가 더 강하다는 예비분석이 있으나 결과는 보고되지 않았다(Seo and Theriault 2012, 219 각주 9). 청견민주만을 다룬 동료심사 연구는 이 사이트의 문헌 조사에서 찾지 못했다.'],
     'rmsp': ['공화당 중도 성향 외부 단체로, Clarke(2020)가 1999–2018년 소속을 코딩한 계파 중 하나다.',
-             '114–115대에서 프리덤코커스 평균은 이 단체 소속 평균보다 0.33 보수 쪽이었다(Clarke 2020, 459).'],
+             '114–115대에서 프리덤코커스 평균은 이 단체 소속 평균보다 0.33 보수 쪽이었다(Clarke 2020, 459).',
+             '소속 의원들은 스스로를 "fiscal conservatives and social moderates"로 규정한다(Seo and Theriault 2012, 205).',
+             '1994–2002년에는 같은 당 비소속 의원보다 정당지지점수(CQ)가 약 4.2점 낮았고, 사회 쟁점에서는 공화당연구위원회 소속보다 약 24점 더 진보적이었다(Lucas and Deutchman 2009, 68, 72).'],
     'mainstreet': ['공화당 하원 코커스. 공식 사이트는 스스로를 "a coalition of 90+ conservative lawmakers"로 소개한다(mainstreetcaucus.house.gov/about, 2026-10-09 접근).',
                    '외부 단체인 메인스트리트파트너십과 이름이 비슷하지만 별개 조직으로 집계한다.'],
     'rsc': ['공화당 주류 계파로 분류된다(서정건·이종곤 2025, 89).',
             'Clarke(2020)의 분석에서 티파티·리버티·프리덤코커스와 함께 공화당 이념 분포의 보수 쪽 꼬리에 몰려 있는 비중도 계파로 나타난다(Clarke 2020, 459–460).',
-            '2025-01-25 이후 공식 회원 명단을 공개하지 않는다(Wikipedia "Republican Study Committee").'],
+            '2025-01-25 이후 공식 회원 명단을 공개하지 않는다(Wikipedia "Republican Study Committee").',
+            '1971년 말 보수파 의원들이 민주당 진보 계파 DSG를 본떠 만들었다("The DSG provided a blueprint", Bloch Rubin 2022, 14). 가입 규칙이 느슨해 당내 과반을 모으는 전략에 맞았다(Bloch Rubin 2022, 15).',
+            '1994–2002년에는 같은 당 비소속 의원보다 정당지지점수(CQ)가 약 2.1점 높았다(Lucas and Deutchman 2009, 68).'],
     'hfc': ['2015년 소정부와 지도부 저항을 내걸고 창립했다(Lee 2026, 19).',
             '티파티 운동을 바탕으로 재정 보수주의와 규제 완화를 내세우고, 국제 문제 개입을 꺼린다(서정건·이종곤 2025, 71).',
             '초대 전용 가입과 다수 합의 시 구속 표결 규칙을 둔다(Clarke 2020, 454, 460).',
-            '2015–2024년 세출·부채한도 표결에서 다른 공화당 의원과 뚜렷이 달랐지만, 2025년 상반기 임시예산(H.R. 1968)과 H.R. 1에는 전원 찬성했다(Lee 2026).'],
+            '2015–2024년 세출·부채한도 표결에서 다른 공화당 의원과 뚜렷이 달랐지만, 2025년 상반기 임시예산(H.R. 1968)과 H.R. 1에는 전원 찬성했다(Lee 2026).',
+            '조직 규칙: 처음에는 회원을 30명으로 제한하고 초대와 엄격한 심사를 거쳐서만 받았다. 주간 회의와 연회비를 정한 내규, 엄격한 비밀유지 규약, 운영위원회를 두었고, 회원 5분의 4가 동의하면 전원이 한 덩어리로 협상·투표한다(Bloch Rubin 2022, 19).',
+            '이 규칙 때문에 2015년 하원의장 선거에서는 회원 3분의 2가 Paul Ryan을 지지했는데도 공식 지지를 내지 못했다(Bloch Rubin 2022, 20).',
+            '티파티 코커스·리버티 코커스와 함께 티파티 계열 코커스로 분류된다(Blum and Cowburn 2024, 95).',
+            '회원 명단을 공개하지 않는다(Wikipedia "Freedom Caucus" 2019-06-23판 oldid 903021329, New York Times 2017-03-20 기사 인용).'],
     'psc': ['양당 의원이 함께 속한 초당파 코커스다. 이 사이트가 정독한 문헌에는 이 코커스의 성격을 다룬 근거가 없어, 구성 통계만 제시한다.'],
 }
 FULL = pd.read_csv(os.path.join(SRC, 'roster_panel.csv'))
@@ -269,6 +288,7 @@ for c in range(119, 105, -1):
 body = f'''<h1>이념 분포</h1>
 <p class="lede">대마다 하원의원을 DW-NOMINATE 1차원(가로, 진보–보수)과 2차원(세로) 위에 찍었습니다. 색은 당적, 모양은 계파입니다.</p>
 <div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단입니다. HFC는 114대부터 Matthew Green 명단입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
+<div class="note"><b>해석 주의.</b> (1) DW-NOMINATE는 의원 경력 전체에 하나의 값을 준다(예: Don Young은 93–117대 모든 대에서 0.283; Blum and Cowburn 2024, 104 각주 13). 따라서 이 그림에서 보이는 계파 분포의 대별 변화는 구성원이 들고 난 효과이고, 같은 의원의 입장 변화는 담지 않는다. (2) 다수당 의원이 지도부 안에 항의하는 뜻으로 반대표를 던지면 표준 척도화 모형은 이를 온건함으로 읽어, 117대 Squad와 118대 McCarthy 의장 선출에 반대한 보수 공화당 의원들이 실제보다 덜 극단적으로 추정될 수 있다(Fowler and Lewis 2026, 533–534). 다만 같은 연구는 NOMINATE에서는 이 보정의 차이가 더 작고, 대부분의 응용에서 차이가 "substantively modest"하다고 밝힌다(533, 539). 이 연구는 특정 계파(HFC·CPC)를 이름으로 다루지 않는다.</div>
 {"".join(figs)}'''
 open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원의원 DW-NOMINATE 분포'))
 
@@ -296,7 +316,7 @@ body = '''<h1>출처와 방법</h1>
 <tr><td>119</td><td>RSC: Washington Post 2025-05-20 기사(Dormido &amp; Sotomayor) 표</td><td>2차</td></tr>
 <tr><td>전 기간</td><td>의원 식별·이념 점수: <a href="https://voteview.com/data">Voteview</a> HSall_members.csv (2026-10-10 접근)</td><td>—</td></tr>
 </table></div>
-<h2>계파 설명에 인용한 문헌</h2><ul>''' + ''.join(f'<li>{v}</li>' for v in REFS.values()) + '''</ul>
+<h2>계파 설명·해석에 인용한 문헌</h2><ul>''' + ''.join(f'<li>{v}</li>' for v in REFS.values()) + '''</ul>
 <h2>정의</h2>
 <ul>
 <li><b>소속</b>: 그 대에 출처 명단에 이름이 실린 하원의원. 116–119대는 그 대의 스냅샷 중 하나 이상에 실린 경우(가입·탈퇴 날짜는 담지 않음).</li>
