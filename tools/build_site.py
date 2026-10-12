@@ -276,21 +276,46 @@ for k, (ko, en, col, desc) in CAUCUS.items():
 {''.join(ros)}'''
     open(os.path.join(ROOT, f'caucus-{k}.html'), 'w').write(page(f'{ko} · 미국 의회 정당 계파', f'caucus-{k}.html', body, f'{en} 대별 소속 의원'))
 
-# ---------------- 이념 분포 ----------------
+# ---------------- 이념 분포 (인터랙티브: 하원·상원 분리, 마커 hover 정보) ----------------
+# 복수 소속은 모양 하나만: 작고 뚜렷한 계파 우선 (factions/rosters_hist/plot_nominate.py와 같은 규칙)
+SHAPE_ORDER = ['cpc', 'populist', 'bluedog', 'ndc', 'hfc', 'teaparty', 'liberty', 'mainstreet', 'rmsp', 'rsc', 'psc']
+SHAPE_NAME = {**{k: v[0] for k, v in CAUCUS.items()}, **AGG_ONLY}
+vvall = pd.read_csv(os.path.join(SRC, 'data', 'HSall_members.csv'))
+sen = vvall[(vvall.chamber == 'Senate') & vvall.congress.between(106, 119)].dropna(subset=['nominate_dim1', 'nominate_dim2'])
+pan = FULL.dropna(subset=['nominate_dim1', 'nominate_dim2'])
+PMAP = {100: 'D', 200: 'R'}
+nom = {}
+for c in range(106, 120):
+    h = pan[pan.congress == c]; hs = []
+    for r in h.itertuples():
+        cs = [k for k in SHAPE_ORDER if getattr(r, k) == 1]
+        hs.append([r.bioname, r.party, f'{r.state}-{int(r.district)}', round(r.nominate_dim1, 3), round(r.nominate_dim2, 3),
+                   cs, cs[0] if cs else ''])
+    ss = []
+    for r in sen[sen.congress == c].itertuples():
+        ss.append([r.bioname, PMAP.get(r.party_code, 'O'), r.state_abbrev, round(r.nominate_dim1, 3), round(r.nominate_dim2, 3), [], ''])
+    covered = [k for k in SHAPE_ORDER if h[k].notna().any()]
+    nom[c] = {'house': hs, 'senate': ss, 'covered': covered}
+json.dump({'congress': nom, 'names': SHAPE_NAME, 'years': CONGRESS_YEARS}, open(os.path.join(DATA, 'nominate.json'), 'w'),
+          ensure_ascii=False, separators=(',', ':'))
 import shutil
-FIG = os.path.join(ROOT, 'assets', 'fig'); os.makedirs(FIG, exist_ok=True)
-figs = []
-for c in range(119, 105, -1):
-    shutil.copy(os.path.join(SRC, 'figures', f'nominate_{c}.png'), os.path.join(FIG, f'nominate_{c}.png'))
-    figs.append(f'<details{" open" if c >= 118 else ""}><summary>{c}대 ({CONGRESS_YEARS[c]})</summary>'
-                f'<img src="assets/fig/nominate_{c}.png" alt="{c}대 하원의원 DW-NOMINATE 1·2차원 분포, 색은 당적, 모양은 계파" '
-                f'style="width:100%;max-width:880px;height:auto;display:block;margin:8px 0"></details>')
+shutil.rmtree(os.path.join(ROOT, 'assets', 'fig'), ignore_errors=True)   # 이전 PNG 그림은 인터랙티브 그래프로 대체
 body = f'''<h1>이념 분포</h1>
-<p class="lede">대마다 하원의원을 DW-NOMINATE 1차원(가로, 진보–보수)과 2차원(세로) 위에 찍었습니다. 색은 당적, 모양은 계파입니다.</p>
+<p class="lede">대마다 하원과 상원 의원을 DW-NOMINATE 1차원(가로, 진보–보수)과 2차원(세로) 위에 찍었습니다. 색은 당적, 모양은 계파입니다. 마커에 커서를 올리면(모바일은 탭) 의원 정보가 나옵니다.</p>
+<div class="controls"><label for="ncong" style="font-size:0.9rem">대</label>
+<select id="ncong" aria-label="대 선택">{''.join(f'<option value="{c}"{" selected" if c == 119 else ""}>{c}대 ({CONGRESS_YEARS[c]})</option>' for c in range(119, 105, -1))}</select>
+<button id="nprev" type="button" aria-label="이전 대">◀</button><button id="nnext" type="button" aria-label="다음 대">▶</button></div>
+<div class="nom-grid">
+<figure class="card nom-panel"><figcaption><b>하원</b> <span id="hcount" class="sub"></span></figcaption><div id="house" class="nom-plot"></div></figure>
+<figure class="card nom-panel"><figcaption><b>상원</b> <span id="scount" class="sub"></span></figcaption><div id="senate" class="nom-plot"></div>
+<p class="sub" style="margin:6px 0 0">상원은 계파 소속 자료가 없어 당적 색만 표시합니다(이 사이트의 계파 명단은 모두 하원 기준).</p></figure>
+</div>
+<div id="nlegend" class="legend"></div>
+<div id="ntip" class="nom-tip" role="status" aria-live="polite" hidden></div>
 <div class="note">한 의원이 여러 계파에 속하면 모양 하나만 씁니다. 우선순위는 민주당 계열 CPC &gt; Populist &gt; 청견민주 &gt; 신민주연합, 공화당 계열 HFC &gt; Tea Party &gt; Liberty &gt; Main Street Caucus &gt; RMSP &gt; RSC이고, 초당파 PSC가 마지막입니다(작고 뚜렷한 계파 우선). 그래서 예를 들어 118대 이후 메인스트리트파트너십 소속 대부분은 Main Street Caucus 모양으로 보입니다. 범례에 없는 계파는 그 대에 출처가 없다는 뜻입니다. 115대까지의 계파 소속은 Clarke(2020) 수기 코딩, 116대부터는 공식 명단입니다. HFC는 114대부터 Matthew Green 명단입니다. 점수는 Voteview 2026-10-10판으로, 의원마다 경력 전체에 하나의 값이라 같은 의원은 모든 대에서 같은 위치에 찍힙니다.</div>
 <div class="note"><b>해석 주의.</b> (1) DW-NOMINATE는 의원 경력 전체에 하나의 값을 준다(예: Don Young은 93–117대 모든 대에서 0.283; Blum and Cowburn 2024, 104 각주 13). 따라서 이 그림에서 보이는 계파 분포의 대별 변화는 구성원이 들고 난 효과이고, 같은 의원의 입장 변화는 담지 않는다. (2) 다수당 의원이 지도부 안에 항의하는 뜻으로 반대표를 던지면 표준 척도화 모형은 이를 온건함으로 읽어, 117대 Squad와 118대 McCarthy 의장 선출에 반대한 보수 공화당 의원들이 실제보다 덜 극단적으로 추정될 수 있다(Fowler and Lewis 2026, 533–534). 다만 같은 연구는 NOMINATE에서는 이 보정의 차이가 더 작고, 대부분의 응용에서 차이가 "substantively modest"하다고 밝힌다(533, 539). 이 연구는 특정 계파(HFC·CPC)를 이름으로 다루지 않는다.</div>
-{"".join(figs)}'''
-open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원의원 DW-NOMINATE 분포'))
+<script src="assets/nominate.js"></script>'''
+open(os.path.join(ROOT, 'nominate.html'), 'w').write(page('이념 분포 · 미국 의회 정당 계파', 'nominate.html', body, '대별 하원·상원 의원 DW-NOMINATE 분포'))
 
 # ---------------- 의원 검색 ----------------
 opts = ''.join(f'<option value="{k}">{v[0]}</option>' for k, v in CAUCUS.items()) + ''.join(f'<option value="{k}">{v}</option>' for k, v in AGG_ONLY.items())

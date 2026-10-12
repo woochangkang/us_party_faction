@@ -53,3 +53,18 @@ summary { cursor: pointer; font-weight: 600; }
 .controls input, .controls select { font: inherit; font-size: 0.88rem; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--fg); }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
 footer { margin-top: 56px; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--line); padding-top: 12px; }
+.nom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin: 8px 0; }
+.nom-panel { margin: 0; }
+.nom-panel figcaption { font-size: 0.95rem; margin-bottom: 4px; }
+.nom-panel .sub { color: var(--muted); font-size: 0.8rem; font-weight: 400; }
+.nom-svg { width: 100%; height: auto; display: block; touch-action: manipulation; }
+.nom-svg .nom-gl { stroke: var(--grid); stroke-width: 1; }
+.nom-svg .nom-zero { stroke: var(--line); stroke-width: 1.2; }
+.nom-svg .nom-tick { fill: var(--muted); font-size: 10px; }
+.nom-svg .nom-label { fill: var(--muted); font-size: 11px; }
+.nom-svg .nom-mark { stroke: var(--card); stroke-width: 0.8; opacity: 0.88; }
+.nom-svg .nom-plain { opacity: 0.55; stroke: none; }
+.nom-svg .nom-ring { fill: none; stroke: var(--fg); stroke-width: 1.5; pointer-events: none; }
+.nom-tip { position: fixed; z-index: 10; max-width: 280px; background: var(--card); color: var(--fg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; font-size: 0.82rem; line-height: 1.5; box-shadow: 0 4px 14px rgba(0,0,0,0.12); pointer-events: none; }
+.controls button { font: inherit; font-size: 0.88rem; padding: 3px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--fg); cursor: pointer; }
